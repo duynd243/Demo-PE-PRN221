@@ -1,0 +1,15 @@
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\bin\Debug\net5.0\DemoPET3.Repository.deps.json
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\bin\Debug\net5.0\DemoPET3.Repository.runtimeconfig.json
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\bin\Debug\net5.0\DemoPET3.Repository.runtimeconfig.dev.json
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\bin\Debug\net5.0\DemoPET3.Repository.dll
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\bin\Debug\net5.0\ref\DemoPET3.Repository.dll
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\bin\Debug\net5.0\DemoPET3.Repository.pdb
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\obj\Debug\net5.0\DemoPET3.Repository.csproj.AssemblyReference.cache
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\obj\Debug\net5.0\DemoPET3.Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\obj\Debug\net5.0\DemoPET3.Repository.AssemblyInfoInputs.cache
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\obj\Debug\net5.0\DemoPET3.Repository.AssemblyInfo.cs
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\obj\Debug\net5.0\DemoPET3.Repository.csproj.CoreCompileInputs.cache
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\obj\Debug\net5.0\DemoPET3.Repository.dll
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\obj\Debug\net5.0\ref\DemoPET3.Repository.dll
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\obj\Debug\net5.0\DemoPET3.Repository.pdb
+D:\FPTU\TERM 7\C# Advanced\Projects\DemoPET3\DemoPET3.Repository\obj\Debug\net5.0\DemoPET3.Repository.genruntimeconfig.cache

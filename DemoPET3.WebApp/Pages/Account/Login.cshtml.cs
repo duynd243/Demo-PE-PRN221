@@ -35,6 +35,11 @@ namespace DemoPET3.WebApp.Pages.Account
         {
             if (!ModelState.IsValid)
             {
+                // Not allow authenticated user to access this page, redirect ...
+                if(HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated )
+                {
+                    return RedirectToPage("/Books/Index");
+                }
                 return Page();
             }
             
