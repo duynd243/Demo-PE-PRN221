@@ -11,7 +11,8 @@ namespace DemoPET3.Repository.Models
         {
             Books = new HashSet<Book>();
         }
-        
+        [Key]
+        [Required]
         public string PublisherId { get; set; }
         [Required]
         public string PublisherName { get; set; }
