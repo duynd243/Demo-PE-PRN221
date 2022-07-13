@@ -23,6 +23,10 @@ namespace DemoPET3.WebApp.Pages.Account
 
         public IActionResult OnGet()
         {
+            if(HttpContext.User.Identity!=null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("/Books/Index");
+            }
             return Page();
         }
 

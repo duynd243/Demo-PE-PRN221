@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,41 +15,43 @@ namespace DemoPET3.WebApp.Pages.Books
     {
         private readonly DemoPEContext _context;
         private readonly IRepository<Book> _repository;
+        private readonly SelectList _publisherOptions;
 
         public CreateModel(DemoPEContext context, IRepository<Book> repository)
         {
             _context = context;
             _repository = repository;
+            _publisherOptions = new SelectList(_context.Publishers, "PublisherId", "PublisherName");
         }
+
 
         public IActionResult OnGet()
         {
-        ViewData["PublisherId"] = new SelectList(_context.Publishers, "PublisherId", "PublisherId");
+            ViewData["PublisherId"] = _publisherOptions;
             return Page();
         }
 
-        [BindProperty]
-        public Book Book { get; set; }
+        [BindProperty] public Book Book { get; set; }
         public string ErrorMessage { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
-            ViewData["PublisherId"] = new SelectList(_context.Publishers, "PublisherId", "PublisherId");
+            ViewData["PublisherId"] = _publisherOptions;
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            
+
             var book = _repository.GetById(Book.BookId);
-            
+
             // Đã tồn tại trong db -> Ko insert, báo lỗi
             if (book != null)
             {
                 ErrorMessage = "Book with this id was existed";
                 return Page();
             }
-            
+
             // Insert vào db
             _repository.Add(Book);
 

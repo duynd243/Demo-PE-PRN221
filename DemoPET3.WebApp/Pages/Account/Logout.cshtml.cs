@@ -1,16 +1,18 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DemoPET3.WebApp.Pages.Account
 {
     public class Logout : PageModel
     {
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            RedirectToPage("./Index");
+            return RedirectToPage("/Index");
         }
     }
 }
