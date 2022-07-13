@@ -24,7 +24,10 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-page="/Books/Index">Books</a>
                     </li>
-                    @if (Context.User.Identity!=null && Context.User.Identity.IsAuthenticated)
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Publishers/Index">Publishers</a>
+                    </li>
+                    @if (Context.User.Identity != null && Context.User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item ml-auto" id="logout_btn">
                             <a class="btn btn-danger nav-link text-white" asp-area="" asp-page="/Account/Logout">Logout</a>
@@ -36,7 +39,6 @@
                             <a class="btn btn-primary nav-link text-white" asp-area="" asp-page="/Account/Login">Login</a>
                         </li>
                     }
-                    
                 </ul>
             </div>
         </div>

@@ -1,14 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using DemoPET3.Repository.Models;
 using DemoPET3.Repository.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,12 +31,15 @@ namespace DemoPET3.WebApp
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeFolder("/Books", "Manager");
+                options.Conventions.AuthorizeFolder("/Publishers", "Manager");
             });
             services.AddDbContext<DemoPEContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("PEDatabase"));
             });
             services.AddScoped<IRepository<Book>, BookRepository>();
+            services.AddScoped<IRepository<Publisher>, PublisherRepository>();
+            services.AddScoped<IRepository<AccountUser>, AccountUserRepository>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
         }
 

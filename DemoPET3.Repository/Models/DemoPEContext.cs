@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿#nullable disable
 
-#nullable disable
+using Microsoft.EntityFrameworkCore;
 
 namespace DemoPET3.Repository.Models
 {

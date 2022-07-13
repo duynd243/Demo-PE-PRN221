@@ -6,7 +6,7 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Books</h1>
+<h1>Index</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -24,49 +24,30 @@
     <thead>
     <tr>
         <th>
-            BookName
+            PublisherName
         </th>
         <th>
-            Quantity
+            Description
         </th>
-        <th>
-            AuthorName
-        </th>
-        <th>
-            Publisher ID
-        </th>
-        <th>
-                    Publisher Name
-                </th>
         <th></th>
     </tr>
     </thead>
     <tbody>
-    @if (Model.Books.Any())
+    @if (Model.Publishers.Any())
     {
-        @foreach (var item in Model.Books)
+        @foreach (var item in Model.Publishers)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BookName)
+                    @Html.DisplayFor(modelItem => item.PublisherName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
+                    @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AuthorName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Publisher.PublisherId)
-                </td>
-                
-                <td>
-                                    @Html.DisplayFor(modelItem => item.Publisher.PublisherName)
-                                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.BookId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.BookId">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.BookId">Delete</a>
+                    <a asp-page="./Edit" asp-route-id="@item.PublisherId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.PublisherId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.PublisherId">Delete</a>
                 </td>
             </tr>
         }
@@ -77,11 +58,10 @@
             <td>No records found!</td>
         </tr>
     }
-    
     </tbody>
 </table>
 
-@if (Model.Books.Any())
+@if (Model.Publishers.Any())
 {
     var prevDisabled = Model.CurrentPage == 1 ? "disabled" : "";
     var nextDisabled = Model.CurrentPage == Model.TotalPages ? "disabled" : "";

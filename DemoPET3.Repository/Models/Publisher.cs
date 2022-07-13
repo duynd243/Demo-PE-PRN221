@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#nullable disable
 
-#nullable disable
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DemoPET3.Repository.Models
 {
@@ -11,8 +11,9 @@ namespace DemoPET3.Repository.Models
         {
             Books = new HashSet<Book>();
         }
-
+        
         public string PublisherId { get; set; }
+        [Required]
         public string PublisherName { get; set; }
         public string Description { get; set; }
 

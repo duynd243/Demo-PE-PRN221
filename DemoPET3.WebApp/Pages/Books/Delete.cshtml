@@ -1,5 +1,5 @@
 @page
-@model DemoPET3.WebApp.Pages.Books.DeleteModel
+@model DeleteModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -11,37 +11,50 @@
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Book</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Book.BookName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Book.BookName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Book.Quantity)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Book.Quantity)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Book.AuthorName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Book.AuthorName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Book.Publisher)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Book.Publisher.PublisherId)
-        </dd>
-    </dl>
+    <hr/>
+    @if (!String.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.ErrorMessage
+        </div>
+    }
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Book.BookName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Book.BookName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Book.Quantity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Book.Quantity)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Book.AuthorName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Book.AuthorName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Book.Publisher)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Book.Publisher.PublisherId)
+            </dd>
+        </dl>
     
+
+
     <form method="post">
-        <input type="hidden" asp-for="Book.BookId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        @if (String.IsNullOrEmpty(Model.ErrorMessage) && Model.Book != null)
+        {
+            <input type="hidden" asp-for="Book.BookId"/>
+            <input type="submit" value="Delete" class="btn btn-danger"/>
+            <span>|</span>
+        }
         <a asp-page="./Index">Back to List</a>
     </form>
+
 </div>

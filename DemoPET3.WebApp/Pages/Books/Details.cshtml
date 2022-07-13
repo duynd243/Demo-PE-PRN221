@@ -1,5 +1,5 @@
 @page
-@model DemoPET3.WebApp.Pages.Books.DetailsModel
+@model DetailsModel
 
 @{
     ViewData["Title"] = "Details";
@@ -10,35 +10,55 @@
 
 <div>
     <h4>Book</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Book.BookName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Book.BookName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Book.Quantity)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Book.Quantity)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Book.AuthorName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Book.AuthorName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Book.Publisher)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Book.Publisher.PublisherId)
-        </dd>
-    </dl>
+    <hr/>
+    @if (!String.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.ErrorMessage
+        </div>
+    }
+    else
+    {
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Book.BookName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Book.BookName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Book.Quantity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Book.Quantity)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Book.AuthorName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Book.AuthorName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Book.Publisher.PublisherId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Book.Publisher.PublisherId)
+            </dd>
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Book.Publisher.PublisherName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Book.Publisher.PublisherName)
+            </dd>
+        </dl>
+    }
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Book.BookId">Edit</a> |
+    @if (String.IsNullOrEmpty(Model.ErrorMessage) && Model.Book != null)
+    {
+        <a asp-page="./Edit" asp-route-id="@Model.Book.BookId">Edit</a>
+        <span>|</span>
+    }
     <a asp-page="./Index">Back to List</a>
 </div>

@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DemoPET3.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DemoPET3.Repository.Repositories
 {
-    public class BookRepository: IRepository<Book>
+    public class BookRepository : IRepository<Book>
     {
         private readonly DemoPEContext _context;
 
@@ -14,7 +13,6 @@ namespace DemoPET3.Repository.Repositories
         {
             _context = context;
         }
-
 
         public IEnumerable<Book> GetAll()
         {
@@ -25,7 +23,9 @@ namespace DemoPET3.Repository.Repositories
 
         public Book GetById(string id)
         {
-            return _context.Books.FirstOrDefault(b => b.BookId == id);
+            return _context.Books
+                .Include(b=>b.Publisher)
+                .FirstOrDefault(b=>b.BookId == id);
         }
 
         public void Add(Book entity)
@@ -36,18 +36,16 @@ namespace DemoPET3.Repository.Repositories
 
         public void Update(Book entity)
         {
-            _context.Books.Update(entity);
+            _context.Attach(entity).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
         public void Delete(string id)
         {
             var book = GetById(id);
-            if (book != null)
-            {
-                _context.Books.Remove(book);
-                _context.SaveChanges();
-            }
+            if (book == null) return;
+            _context.Books.Remove(book);
+            _context.SaveChanges();
         }
     }
 }

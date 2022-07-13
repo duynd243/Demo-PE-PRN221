@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <Folder Include="Pages\Books" />
+      <Folder Include="Pages\Publishers" />
     </ItemGroup>
 
 </Project>

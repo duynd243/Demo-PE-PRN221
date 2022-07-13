@@ -1,61 +1,58 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DemoPET3.Repository.Models;
+using DemoPET3.Repository.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using DemoPET3.Repository.Models;
-using DemoPET3.Repository.Repositories;
 
 namespace DemoPET3.WebApp.Pages.Books
 {
     public class CreateModel : PageModel
     {
-        private readonly DemoPEContext _context;
-        private readonly IRepository<Book> _repository;
-        private readonly SelectList _publisherOptions;
+        private readonly IRepository<Book> _bookRepository;
+        private readonly IRepository<Publisher> _publisherRepository;
+        private readonly SelectList _publisherDropdownOptions;
 
-        public CreateModel(DemoPEContext context, IRepository<Book> repository)
+        public CreateModel(IRepository<Book> bookRepository, IRepository<Publisher> publisherRepository)
         {
-            _context = context;
-            _repository = repository;
-            _publisherOptions = new SelectList(_context.Publishers, "PublisherId", "PublisherName");
+            _bookRepository = bookRepository;
+            _publisherRepository = publisherRepository;
+            _publisherDropdownOptions = new SelectList(
+                _publisherRepository.GetAll()
+                , "PublisherId",
+                "PublisherName"
+            );
         }
-
 
         public IActionResult OnGet()
         {
-            ViewData["PublisherId"] = _publisherOptions;
+            ViewData["Publishers"] = _publisherDropdownOptions;
             return Page();
         }
 
         [BindProperty] public Book Book { get; set; }
         public string ErrorMessage { get; set; }
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public IActionResult OnPost()
         {
-            ViewData["PublisherId"] = _publisherOptions;
+            ViewData["Publishers"] = _publisherDropdownOptions;
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+            
+            var book = _bookRepository.GetById(Book.BookId);
 
-            var book = _repository.GetById(Book.BookId);
-
-            // Đã tồn tại trong db -> Ko insert, báo lỗi
+            // Book existed in DB -> Not insert
             if (book != null)
             {
-                ErrorMessage = "Book with this id was existed";
+                ErrorMessage = "Book with this ID was existed";
                 return Page();
             }
+            
+            // Not found in DB -> Insert...
+            _bookRepository.Add(Book);
 
-            // Insert vào db
-            _repository.Add(Book);
-
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Books/Index");
         }
     }
 }

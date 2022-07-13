@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿#nullable disable
 
-#nullable disable
+using System.ComponentModel.DataAnnotations;
 
 namespace DemoPET3.Repository.Models
 {

@@ -1,24 +1,22 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using DemoPET3.Repository.Models;
+using DemoPET3.Repository.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DemoPET3.WebApp.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly DemoPET3.Repository.Models.DemoPEContext _context;
+        private readonly IRepository<AccountUser> _repository;
 
-        public LoginModel(DemoPET3.Repository.Models.DemoPEContext context)
+        public LoginModel(IRepository<AccountUser> repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public IActionResult OnGet()
@@ -34,7 +32,6 @@ namespace DemoPET3.WebApp.Pages.Account
         public AccountUser AccountUser { get; set; }
         public string ErrorMessage { get; set; }
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -46,14 +43,10 @@ namespace DemoPET3.WebApp.Pages.Account
                 }
                 return Page();
             }
+
+            var user = ((AccountUserRepository) _repository)
+                .Login(AccountUser.UserId, AccountUser.UserPassword);
             
-            var user = _context
-                .AccountUsers
-                .FirstOrDefault(a=>a.UserId == AccountUser.UserId
-                && a.UserPassword == AccountUser.UserPassword);
-            
-            // Null => ko tìm thấy trong db
-            // !null => Tìm thấy
 
             if (user == null)
             {
@@ -67,7 +60,7 @@ namespace DemoPET3.WebApp.Pages.Account
                 return Page();
             }
             
-            // user != null và role = 2
+            // Allowed user: User with Role ID = 2
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserId),
@@ -75,17 +68,15 @@ namespace DemoPET3.WebApp.Pages.Account
             };
             
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            //Initialize a new instance of the ClaimsPrincipal with ClaimsIdentity    
-            var principal = new ClaimsPrincipal(identity);
             var authProperties = new AuthenticationProperties{ };
             
-            // Cấp cookies và đăng nhập
+            // Issue cookie
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(identity),
                 authProperties);
 
-            return RedirectToPage("/Books/Index");
+            return RedirectToPage("/Index");
         }
     }
 }

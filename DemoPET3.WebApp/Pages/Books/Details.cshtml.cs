@@ -1,40 +1,34 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using DemoPET3.Repository.Models;
+using DemoPET3.Repository.Repositories;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DemoPET3.WebApp.Pages.Books
 {
     public class DetailsModel : PageModel
     {
-        private readonly DemoPET3.Repository.Models.DemoPEContext _context;
+        private readonly IRepository<Book> _repository;
 
-        public DetailsModel(DemoPET3.Repository.Models.DemoPEContext context)
+        public DetailsModel(IRepository<Book> repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public Book Book { get; set; }
+        public string ErrorMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public void OnGet(string id)
         {
             if (id == null)
             {
-                return NotFound();
+                ErrorMessage = "Please provide a valid Book ID";
             }
 
-            Book = await _context.Books
-                .Include(b => b.Publisher).FirstOrDefaultAsync(m => m.BookId == id);
+            Book = _repository.GetById(id);
 
             if (Book == null)
             {
-                return NotFound();
+                ErrorMessage = $"Book with ID {id} not found";
             }
-            return Page();
         }
     }
 }

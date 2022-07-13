@@ -1,57 +1,45 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DemoPET3.Repository.Models;
+using DemoPET3.Repository.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using DemoPET3.Repository.Models;
 
 namespace DemoPET3.WebApp.Pages.Books
 {
     public class DeleteModel : PageModel
     {
-        private readonly DemoPET3.Repository.Models.DemoPEContext _context;
+        private readonly IRepository<Book> _repository;
 
-        public DeleteModel(DemoPET3.Repository.Models.DemoPEContext context)
+        public DeleteModel(IRepository<Book> repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
-        [BindProperty]
-        public Book Book { get; set; }
+        [BindProperty] public Book Book { get; set; }
+        public string ErrorMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public void OnGet(string id)
         {
             if (id == null)
             {
-                return NotFound();
+                ErrorMessage = "Please provide a valid Book ID";
             }
 
-            Book = await _context.Books
-                .Include(b => b.Publisher).FirstOrDefaultAsync(m => m.BookId == id);
+            Book = _repository.GetById(id);
 
             if (Book == null)
             {
-                return NotFound();
+                ErrorMessage = $"Book with ID {id} not found";
             }
-            return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public IActionResult OnPostAsync(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Book = await _context.Books.FindAsync(id);
-
-            if (Book != null)
-            {
-                _context.Books.Remove(Book);
-                await _context.SaveChangesAsync();
-            }
+            _repository.Delete(id);
 
             return RedirectToPage("./Index");
         }

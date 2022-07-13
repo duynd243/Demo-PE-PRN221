@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPET3.Repository", "Demo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPET3.WebApp", "DemoPET3.WebApp\DemoPET3.WebApp.csproj", "{48B6D244-A600-4D90-948E-C0D9AFAF4C70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWeb", "TestWeb\TestWeb.csproj", "{47CE88DD-2760-4525-9B3C-EF874131630F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,9 +18,5 @@ Global
 		{48B6D244-A600-4D90-948E-C0D9AFAF4C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48B6D244-A600-4D90-948E-C0D9AFAF4C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48B6D244-A600-4D90-948E-C0D9AFAF4C70}.Release|Any CPU.Build.0 = Release|Any CPU
-		{47CE88DD-2760-4525-9B3C-EF874131630F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{47CE88DD-2760-4525-9B3C-EF874131630F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{47CE88DD-2760-4525-9B3C-EF874131630F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{47CE88DD-2760-4525-9B3C-EF874131630F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
